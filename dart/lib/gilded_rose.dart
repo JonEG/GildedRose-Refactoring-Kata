@@ -2,57 +2,57 @@ import 'package:gilded_rose/item.dart';
 
 class GildedRose {
   List<Item> items;
+  List<String> specialItems = [
+    "Aged Brie",
+    "Backstage passes to a TAFKAL80ETC concert"
+  ];
+  List<String> legendaryItems = ["Sulfuras, Hand of Ragnaros"];
 
   GildedRose(this.items);
 
   void updateQuality() {
     for (int i = 0; i < items.length; i++) {
-      if (items[i].name != "Aged Brie" &&
-          items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-        if (items[i].quality > 0) {
-          if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-            items[i].quality = items[i].quality - 1;
+      Item item = items[i];
+      bool isSpecialItem = specialItems.contains(item.name);
+      bool isLegendaryItem = legendaryItems.contains(item.name);
+      bool isNormalItem = !isSpecialItem && !isLegendaryItem;
+
+      //calculate special item
+      if (isSpecialItem) {
+        if (item.quality < 50) {
+          //backstage case
+          if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+            items[i].quality++;
+            if (item.sellIn <= 10) items[i].quality++;
+            if (item.sellIn <= 5) items[i].quality++;
+            if (item.sellIn == 0) items[i].quality = 0;
+          }
+          //default case
+          else {
+            items[i].quality++;
           }
         }
-      } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1;
+        items[i].sellIn--;
+      }
 
-          if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-            if (items[i].sellIn < 11) {
-              if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1;
-              }
-            }
+      //calculate normal item
+      if (isNormalItem) {
+        items[i].sellIn--;
 
-            if (items[i].sellIn < 6) {
-              if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1;
-              }
-            }
+        if (item.quality > 0) {
+          items[i].quality--;
+          //if is overdate
+          if (item.sellIn < 0) {
+            items[i].quality--;
           }
         }
       }
 
-      if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-        items[i].sellIn = items[i].sellIn - 1;
-      }
-
-      if (items[i].sellIn < 0) {
-        if (items[i].name != "Aged Brie") {
-          if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (items[i].quality > 0) {
-              if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                items[i].quality = items[i].quality - 1;
-              }
-            }
-          } else {
-            items[i].quality = items[i].quality - items[i].quality;
-          }
-        } else {
-          if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1;
-          }
+      //if product is overdate
+      if (item.sellIn < 0) {
+        //calculate quality for overdate Brie
+        if (item.name == "Aged Brie" && item.quality < 50) {
+          items[i].quality++;
         }
       }
     }
