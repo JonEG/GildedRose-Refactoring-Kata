@@ -1,3 +1,5 @@
+import 'package:gilded_rose/item.dart';
+
 class GildedRose {
   List<Item> items;
 
@@ -55,14 +57,4 @@ class GildedRose {
       }
     }
   }
-}
-
-class Item {
-  String name;
-  int sellIn;
-  int quality;
-
-  Item(this.name, this.sellIn, this.quality);
-
-  String toString() => '$name, $sellIn, $quality';
 }

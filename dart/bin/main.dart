@@ -1,4 +1,5 @@
 import 'package:gilded_rose/gilded_rose.dart';
+import 'package:gilded_rose/item.dart';
 
 main(List<String> args) {
   print("OMGHAI!");
