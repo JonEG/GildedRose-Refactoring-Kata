@@ -1,8 +1,24 @@
+import 'dart:io';
+
 import 'package:gilded_rose/item.dart';
 import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
 
 main() {
+  test("When comparing generated outputs then they are equal", () async {
+    // Step 1: Run the command and capture its output
+    var result = await Process.run('dart', ['run', 'bin/main.dart']);
+
+    // The output of the command
+    String output = result.stdout;
+
+    // Step 2: Read the content of the original output file
+    String originalOutput = await File('golden_master.txt').readAsString();
+
+    // Step 3: Compare the outputs
+
+    expect(output == originalOutput, true);
+  });
   test("When Item updates then quality decreases", () {
     //Arrange
     var item = new Item("foo", 0, 1);
@@ -125,7 +141,7 @@ main() {
   });
   test("When Item increases quality its maximum is 50", () {
     //Arrange
-    var item = new Item("Aged Brie", 0, 50);
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 3, 50);
     var items = <Item>[item];
     GildedRose app = new GildedRose(items);
     //Act
