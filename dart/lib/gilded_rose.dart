@@ -1,5 +1,6 @@
 import 'package:gilded_rose/basic_item.dart';
 import 'package:gilded_rose/item.dart';
+import 'package:gilded_rose/special_item.dart';
 
 class GildedRose {
   List<Item> items;
@@ -19,7 +20,11 @@ class GildedRose {
       bool isNormalItem = !isSpecialItem && !isLegendaryItem;
 
       if (isSpecialItem) {
-        _updateSpecialProduct(item);
+        if (item is SpecialItem) {
+          item.update();
+        } else {
+          _updateSpecialProduct(item);
+        }
       }
 
       if (isNormalItem) {

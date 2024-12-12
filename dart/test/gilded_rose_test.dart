@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:gilded_rose/basic_item.dart';
 import 'package:gilded_rose/item.dart';
 import 'package:gilded_rose/legendary_item.dart';
+import 'package:gilded_rose/special_item.dart';
 import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
 
@@ -71,7 +72,7 @@ main() {
   });
   test("When updated Item is Aged Brie then quality increases", () {
     //Arrange
-    var item = Item("Aged Brie", 0, 0);
+    var item = SpecialItem("Aged Brie", 0, 0);
     int initialQuality = item.quality;
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
@@ -82,7 +83,7 @@ main() {
   });
   test("When updated Item is Backstage passes then quality increases", () {
     //Arrange
-    var item = Item("Backstage passes to a TAFKAL80ETC concert", 1, 0);
+    var item = SpecialItem("Backstage passes to a TAFKAL80ETC concert", 1, 0);
     int initialQuality = item.quality;
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
@@ -97,7 +98,7 @@ main() {
     const hotDaysLeft = [10, 6];
     for (var daysForTheConcert in hotDaysLeft) {
       //Arrange
-      var item = Item(
+      var item = SpecialItem(
         "Backstage passes to a TAFKAL80ETC concert",
         daysForTheConcert,
         1,
@@ -116,7 +117,7 @@ main() {
     const hotDaysLeft = [5, 1];
     for (var daysForTheConcert in hotDaysLeft) {
       //Arrange
-      var item = Item(
+      var item = SpecialItem(
         "Backstage passes to a TAFKAL80ETC concert",
         daysForTheConcert,
         1,
@@ -133,7 +134,7 @@ main() {
       "When updated Item is Backstage passes and is concert day then quality falls to 0",
       () {
     //Arrange
-    var item = Item("Backstage passes to a TAFKAL80ETC concert", 0, 10);
+    var item = SpecialItem("Backstage passes to a TAFKAL80ETC concert", 0, 10);
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
     //Act
@@ -143,7 +144,7 @@ main() {
   });
   test("When Item increases quality its maximum is 50", () {
     //Arrange
-    var item = Item("Backstage passes to a TAFKAL80ETC concert", 3, 50);
+    var item = SpecialItem("Backstage passes to a TAFKAL80ETC concert", 3, 50);
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
     //Act
@@ -211,6 +212,34 @@ main() {
     int quality = 1;
     Item item = Item(name, sellIn, quality);
     LegendaryItem basicItem = LegendaryItem(name, sellIn, quality);
+    //Act
+    //update item
+    var items = <Item>[item, basicItem];
+    GildedRose app = GildedRose(items);
+    app.updateQuality();
+    //Assert
+    expect(item == basicItem, true);
+  });
+  test("When special Item and SpecialItem have same params then they are equal",
+      () {
+    //Arrange
+    String name = "Backstage passes to a TAFKAL80ETC concert";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    SpecialItem basicItem = SpecialItem(name, sellIn, quality);
+    //Assert
+    expect(item == basicItem, true);
+  });
+  test(
+      "When special Item and SpecialItem are equal, then after update they are still equal",
+      () {
+    //Arrange
+    String name = "Backstage passes to a TAFKAL80ETC concert";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    SpecialItem basicItem = SpecialItem(name, sellIn, quality);
     //Act
     //update item
     var items = <Item>[item, basicItem];
