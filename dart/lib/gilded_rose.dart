@@ -1,3 +1,4 @@
+import 'package:gilded_rose/basic_item.dart';
 import 'package:gilded_rose/item.dart';
 
 class GildedRose {
@@ -22,7 +23,11 @@ class GildedRose {
       }
 
       if (isNormalItem) {
-        _updateNormalProduct(item);
+        if (item is BasicItem) {
+          item.update();
+        } else {
+          _updateNormalProduct(item);
+        }
       }
     }
   }

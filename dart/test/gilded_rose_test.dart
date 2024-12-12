@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:gilded_rose/basic_item.dart';
 import 'package:gilded_rose/item.dart';
 import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
@@ -159,5 +160,27 @@ main() {
     //Assert
     expect(app.items[0].quality, 1);
     expect(app.items[0].sellIn, 1);
+  });
+  test("When normal Item and BasicItem have same params then they are equal",
+      () {
+    //Arrange
+    Item item = new Item("Foo", 1, 1);
+    BasicItem basicItem = new BasicItem("Foo", 1, 1);
+    //Assert
+    expect(item == basicItem, true);
+  });
+  test(
+      "When normal Item and BasicItem are equal, then after update they are still equal",
+      () {
+    //Arrange
+    Item item = new Item("Foo", 1, 1);
+    BasicItem basicItem = new BasicItem("Foo", 1, 1);
+    //Act
+    //update item
+    var items = <Item>[item, basicItem];
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    //Assert
+    expect(item == basicItem, true);
   });
 }
