@@ -22,10 +22,10 @@ main() {
 
   test("When Item updates then quality decreases", () {
     //Arrange
-    var item = new BasicItem("foo", 0, 1);
+    var item = BasicItem("foo", 0, 1);
     int initialQuality = item.quality;
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -33,10 +33,10 @@ main() {
   });
   test("When Item updates then days to sell decreases", () {
     //Arrange
-    var item = new BasicItem("foo", 0, 0);
+    var item = BasicItem("foo", 0, 0);
     int initialDays = item.sellIn;
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -44,10 +44,10 @@ main() {
   });
   test("When Item date is passed then its quality decreases twice as fast", () {
     //Arrange
-    var item = new BasicItem("foo", 1, 10);
+    var item = BasicItem("foo", 1, 10);
     int initialQuality = item.quality;
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     int firstQualityUpdate = app.items[0].quality;
@@ -60,9 +60,9 @@ main() {
   });
   test('When Item updates its quality is never negative', () {
     //Arrange
-    var item = new Item('foo', 0, 0);
+    var item = Item('foo', 0, 0);
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -70,10 +70,10 @@ main() {
   });
   test("When updated Item is Aged Brie then quality increases", () {
     //Arrange
-    var item = new Item("Aged Brie", 0, 0);
+    var item = Item("Aged Brie", 0, 0);
     int initialQuality = item.quality;
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -81,10 +81,10 @@ main() {
   });
   test("When updated Item is Backstage passes then quality increases", () {
     //Arrange
-    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0);
+    var item = Item("Backstage passes to a TAFKAL80ETC concert", 1, 0);
     int initialQuality = item.quality;
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -96,13 +96,13 @@ main() {
     const hotDaysLeft = [10, 6];
     for (var daysForTheConcert in hotDaysLeft) {
       //Arrange
-      var item = new Item(
+      var item = Item(
         "Backstage passes to a TAFKAL80ETC concert",
         daysForTheConcert,
         1,
       );
       var items = <Item>[item];
-      GildedRose app = new GildedRose(items);
+      GildedRose app = GildedRose(items);
       //Act
       app.updateQuality();
       //assert
@@ -115,13 +115,13 @@ main() {
     const hotDaysLeft = [5, 1];
     for (var daysForTheConcert in hotDaysLeft) {
       //Arrange
-      var item = new Item(
+      var item = Item(
         "Backstage passes to a TAFKAL80ETC concert",
         daysForTheConcert,
         1,
       );
       var items = <Item>[item];
-      GildedRose app = new GildedRose(items);
+      GildedRose app = GildedRose(items);
       //Act
       app.updateQuality();
       //assert
@@ -132,9 +132,9 @@ main() {
       "When updated Item is Backstage passes and is concert day then quality falls to 0",
       () {
     //Arrange
-    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10);
+    var item = Item("Backstage passes to a TAFKAL80ETC concert", 0, 10);
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -142,9 +142,9 @@ main() {
   });
   test("When Item increases quality its maximum is 50", () {
     //Arrange
-    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 3, 50);
+    var item = Item("Backstage passes to a TAFKAL80ETC concert", 3, 50);
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -152,9 +152,9 @@ main() {
   });
   test("When Sulfuras updates it does not vary", () {
     //Arrange
-    var item = new Item("Sulfuras, Hand of Ragnaros", 1, 1);
+    var item = Item("Sulfuras, Hand of Ragnaros", 1, 1);
     var items = <Item>[item];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     //Act
     app.updateQuality();
     //Assert
@@ -164,8 +164,11 @@ main() {
   test("When normal Item and BasicItem have same params then they are equal",
       () {
     //Arrange
-    Item item = new Item("foo", 1, 1);
-    BasicItem basicItem = new BasicItem("foo", 1, 1);
+    String name = "foo";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    BasicItem basicItem = BasicItem(name, sellIn, quality);
     //Assert
     expect(item == basicItem, true);
   });
@@ -173,12 +176,15 @@ main() {
       "When normal Item and BasicItem are equal, then after update they are still equal",
       () {
     //Arrange
-    Item item = new Item("foo", 1, 1);
-    BasicItem basicItem = new BasicItem("foo", 1, 1);
+    String name = "foo";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    BasicItem basicItem = BasicItem(name, sellIn, quality);
     //Act
     //update item
     var items = <Item>[item, basicItem];
-    GildedRose app = new GildedRose(items);
+    GildedRose app = GildedRose(items);
     app.updateQuality();
     //Assert
     expect(item == basicItem, true);
