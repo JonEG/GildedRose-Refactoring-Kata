@@ -22,7 +22,7 @@ main() {
 
   test("When Item updates then quality decreases", () {
     //Arrange
-    var item = new Item("foo", 0, 1);
+    var item = new BasicItem("foo", 0, 1);
     int initialQuality = item.quality;
     var items = <Item>[item];
     GildedRose app = new GildedRose(items);
@@ -33,7 +33,7 @@ main() {
   });
   test("When Item updates then days to sell decreases", () {
     //Arrange
-    var item = new Item("foo", 0, 0);
+    var item = new BasicItem("foo", 0, 0);
     int initialDays = item.sellIn;
     var items = <Item>[item];
     GildedRose app = new GildedRose(items);
@@ -44,7 +44,7 @@ main() {
   });
   test("When Item date is passed then its quality decreases twice as fast", () {
     //Arrange
-    var item = new Item("foo", 1, 10);
+    var item = new BasicItem("foo", 1, 10);
     int initialQuality = item.quality;
     var items = <Item>[item];
     GildedRose app = new GildedRose(items);
@@ -164,8 +164,8 @@ main() {
   test("When normal Item and BasicItem have same params then they are equal",
       () {
     //Arrange
-    Item item = new Item("Foo", 1, 1);
-    BasicItem basicItem = new BasicItem("Foo", 1, 1);
+    Item item = new Item("foo", 1, 1);
+    BasicItem basicItem = new BasicItem("foo", 1, 1);
     //Assert
     expect(item == basicItem, true);
   });
@@ -173,8 +173,8 @@ main() {
       "When normal Item and BasicItem are equal, then after update they are still equal",
       () {
     //Arrange
-    Item item = new Item("Foo", 1, 1);
-    BasicItem basicItem = new BasicItem("Foo", 1, 1);
+    Item item = new Item("foo", 1, 1);
+    BasicItem basicItem = new BasicItem("foo", 1, 1);
     //Act
     //update item
     var items = <Item>[item, basicItem];
