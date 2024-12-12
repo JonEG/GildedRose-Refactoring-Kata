@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:gilded_rose/basic_item.dart';
 import 'package:gilded_rose/item.dart';
+import 'package:gilded_rose/legendary_item.dart';
 import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
 
@@ -152,7 +153,7 @@ main() {
   });
   test("When Sulfuras updates it does not vary", () {
     //Arrange
-    var item = Item("Sulfuras, Hand of Ragnaros", 1, 1);
+    var item = LegendaryItem("Sulfuras, Hand of Ragnaros", 1, 1);
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
     //Act
@@ -181,6 +182,35 @@ main() {
     int quality = 1;
     Item item = Item(name, sellIn, quality);
     BasicItem basicItem = BasicItem(name, sellIn, quality);
+    //Act
+    //update item
+    var items = <Item>[item, basicItem];
+    GildedRose app = GildedRose(items);
+    app.updateQuality();
+    //Assert
+    expect(item == basicItem, true);
+  });
+  test(
+      "When legendary Item and LegendaryItem have same params then they are equal",
+      () {
+    //Arrange
+    String name = "Sulfuras, Hand of Ragnaros";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    LegendaryItem basicItem = LegendaryItem(name, sellIn, quality);
+    //Assert
+    expect(item == basicItem, true);
+  });
+  test(
+      "When legendary Item and LegendaryItem are equal, then after update they are still equal",
+      () {
+    //Arrange
+    String name = "Sulfuras, Hand of Ragnaros";
+    int sellIn = 1;
+    int quality = 1;
+    Item item = Item(name, sellIn, quality);
+    LegendaryItem basicItem = LegendaryItem(name, sellIn, quality);
     //Act
     //update item
     var items = <Item>[item, basicItem];
