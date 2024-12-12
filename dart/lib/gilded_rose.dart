@@ -22,32 +22,32 @@ class GildedRose {
         if (item.quality < 50) {
           //backstage case
           if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-            items[i].quality++;
-            if (item.quality < 50 && item.sellIn <= 10) items[i].quality++;
-            if (item.quality < 50 && item.sellIn <= 5) items[i].quality++;
-            if (item.sellIn == 0) items[i].quality = 0;
+            item.quality++;
+            if (item.quality < 50 && item.sellIn <= 10) item.quality++;
+            if (item.quality < 50 && item.sellIn <= 5) item.quality++;
+            if (item.sellIn == 0) item.quality = 0;
           }
           //default case
           else {
             //if product is overdate
             if (item.quality < 50 &&
                 item.sellIn < 0 &&
-                item.name == "Aged Brie") items[i].quality++;
-            if (item.quality < 50) items[i].quality++;
+                item.name == "Aged Brie") item.quality++;
+            if (item.quality < 50) item.quality++;
           }
         }
-        items[i].sellIn--;
+        item.sellIn--;
       }
 
       //calculate normal item
       if (isNormalItem) {
-        items[i].sellIn--;
+        item.sellIn--;
 
         if (item.quality > 0) {
-          items[i].quality--;
+          item.quality--;
           //if is overdate
           if (item.sellIn < 0) {
-            items[i].quality--;
+            item.quality--;
           }
         }
       }
