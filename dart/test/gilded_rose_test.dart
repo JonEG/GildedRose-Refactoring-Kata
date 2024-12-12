@@ -16,9 +16,9 @@ main() {
     String originalOutput = await File('golden_master.txt').readAsString();
 
     // Step 3: Compare the outputs
-
     expect(output == originalOutput, true);
   });
+
   test("When Item updates then quality decreases", () {
     //Arrange
     var item = new Item("foo", 0, 1);
