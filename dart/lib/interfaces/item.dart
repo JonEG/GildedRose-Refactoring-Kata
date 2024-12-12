@@ -1,9 +1,11 @@
-class Item {
+abstract class Item {
   String name;
   int sellIn;
   int quality;
 
   Item(this.name, this.sellIn, this.quality);
+
+  void update();
 
   @override
   operator ==(other) =>

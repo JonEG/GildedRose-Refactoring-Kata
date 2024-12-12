@@ -1,7 +1,6 @@
-import 'package:gilded_rose/item.dart';
-import 'package:gilded_rose/item_interface.dart';
+import 'package:gilded_rose/interfaces/item.dart';
 
-class SpecialItem extends Item implements ItemInterface {
+class SpecialItem extends Item {
   SpecialItem(String name, int sellIn, int quality)
       : super(name, sellIn, quality);
 

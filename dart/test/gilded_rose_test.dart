@@ -1,28 +1,14 @@
-import 'dart:io';
+// import 'dart:io';
 
-import 'package:gilded_rose/basic_item.dart';
-import 'package:gilded_rose/conjured_item.dart';
-import 'package:gilded_rose/item.dart';
-import 'package:gilded_rose/legendary_item.dart';
-import 'package:gilded_rose/special_item.dart';
+import 'package:gilded_rose/models/basic_item.dart';
+import 'package:gilded_rose/models/conjured_item.dart';
+import 'package:gilded_rose/interfaces/item.dart';
+import 'package:gilded_rose/models/legendary_item.dart';
+import 'package:gilded_rose/models/special_item.dart';
 import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
 
 main() {
-  // test("When comparing generated outputs then they are equal", () async {
-  //   // Step 1: Run the command and capture its output
-  //   var result = await Process.run('dart', ['run', 'bin/main.dart']);
-
-  //   // The output of the command
-  //   String output = result.stdout;
-
-  //   // Step 2: Read the content of the original output file
-  //   String originalOutput = await File('golden_master.txt').readAsString();
-
-  //   // Step 3: Compare the outputs
-  //   expect(output == originalOutput, true);
-  // });
-
   test("When Item updates then quality decreases", () {
     //Arrange
     var item = BasicItem("foo", 0, 1);
@@ -163,91 +149,6 @@ main() {
     //Assert
     expect(app.items[0].quality, 1);
     expect(app.items[0].sellIn, 1);
-  });
-  test("When normal Item and BasicItem have same params then they are equal",
-      () {
-    //Arrange
-    String name = "foo";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    BasicItem basicItem = BasicItem(name, sellIn, quality);
-    //Assert
-    expect(item == basicItem, true);
-  });
-  test(
-      "When normal Item and BasicItem are equal, then after update they are still equal",
-      () {
-    //Arrange
-    String name = "foo";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    BasicItem basicItem = BasicItem(name, sellIn, quality);
-    //Act
-    //update item
-    var items = <Item>[item, basicItem];
-    GildedRose app = GildedRose(items);
-    app.updateQuality();
-    //Assert
-    expect(item == basicItem, true);
-  });
-  test(
-      "When legendary Item and LegendaryItem have same params then they are equal",
-      () {
-    //Arrange
-    String name = "Sulfuras, Hand of Ragnaros";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    LegendaryItem basicItem = LegendaryItem(name, sellIn, quality);
-    //Assert
-    expect(item == basicItem, true);
-  });
-  test(
-      "When legendary Item and LegendaryItem are equal, then after update they are still equal",
-      () {
-    //Arrange
-    String name = "Sulfuras, Hand of Ragnaros";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    LegendaryItem basicItem = LegendaryItem(name, sellIn, quality);
-    //Act
-    //update item
-    var items = <Item>[item, basicItem];
-    GildedRose app = GildedRose(items);
-    app.updateQuality();
-    //Assert
-    expect(item == basicItem, true);
-  });
-  test("When special Item and SpecialItem have same params then they are equal",
-      () {
-    //Arrange
-    String name = "Backstage passes to a TAFKAL80ETC concert";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    SpecialItem basicItem = SpecialItem(name, sellIn, quality);
-    //Assert
-    expect(item == basicItem, true);
-  });
-  test(
-      "When special Item and SpecialItem are equal, then after update they are still equal",
-      () {
-    //Arrange
-    String name = "Backstage passes to a TAFKAL80ETC concert";
-    int sellIn = 1;
-    int quality = 1;
-    Item item = Item(name, sellIn, quality);
-    SpecialItem basicItem = SpecialItem(name, sellIn, quality);
-    //Act
-    //update item
-    var items = <Item>[item, basicItem];
-    GildedRose app = GildedRose(items);
-    app.updateQuality();
-    //Assert
-    expect(item == basicItem, true);
   });
   test("When ConjuredItem then decreases twice as fast as BasicItem", () {
     //Arrange
