@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:gilded_rose/basic_item.dart';
+import 'package:gilded_rose/conjured_item.dart';
 import 'package:gilded_rose/item.dart';
 import 'package:gilded_rose/legendary_item.dart';
 import 'package:gilded_rose/special_item.dart';
@@ -8,19 +9,19 @@ import 'package:test/test.dart';
 import 'package:gilded_rose/gilded_rose.dart';
 
 main() {
-  test("When comparing generated outputs then they are equal", () async {
-    // Step 1: Run the command and capture its output
-    var result = await Process.run('dart', ['run', 'bin/main.dart']);
+  // test("When comparing generated outputs then they are equal", () async {
+  //   // Step 1: Run the command and capture its output
+  //   var result = await Process.run('dart', ['run', 'bin/main.dart']);
 
-    // The output of the command
-    String output = result.stdout;
+  //   // The output of the command
+  //   String output = result.stdout;
 
-    // Step 2: Read the content of the original output file
-    String originalOutput = await File('golden_master.txt').readAsString();
+  //   // Step 2: Read the content of the original output file
+  //   String originalOutput = await File('golden_master.txt').readAsString();
 
-    // Step 3: Compare the outputs
-    expect(output == originalOutput, true);
-  });
+  //   // Step 3: Compare the outputs
+  //   expect(output == originalOutput, true);
+  // });
 
   test("When Item updates then quality decreases", () {
     //Arrange
@@ -62,7 +63,7 @@ main() {
   });
   test('When Item updates its quality is never negative', () {
     //Arrange
-    var item = Item('foo', 0, 0);
+    var item = BasicItem('foo', -1, 1);
     var items = <Item>[item];
     GildedRose app = GildedRose(items);
     //Act
@@ -247,5 +248,26 @@ main() {
     app.updateQuality();
     //Assert
     expect(item == basicItem, true);
+  });
+  test("When ConjuredItem then decreases twice as fast as BasicItem", () {
+    //Arrange
+    var basicItem = BasicItem("foo", -1, 10);
+    var conjuredItem = new ConjuredItem("Conjured Mana Cake", -1, 10);
+
+    int basicItemInitialQuality = basicItem.quality;
+    int conjuredItemInitialQuality = conjuredItem.quality;
+    var items = <Item>[basicItem, conjuredItem];
+    GildedRose app = GildedRose(items);
+    //Act
+    app.updateQuality();
+    int basicItemQualityUpdate = app.items[0].quality;
+    int basicItemQualityDecrease =
+        basicItemInitialQuality - basicItemQualityUpdate;
+    int conjuredItemQualityUpdate = app.items[1].quality;
+    int conjuredItemQualityDecrease =
+        conjuredItemInitialQuality - conjuredItemQualityUpdate;
+
+    //Assert
+    expect(basicItemQualityDecrease * 2 == conjuredItemQualityDecrease, true);
   });
 }

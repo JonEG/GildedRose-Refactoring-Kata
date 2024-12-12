@@ -1,4 +1,5 @@
 import 'package:gilded_rose/basic_item.dart';
+import 'package:gilded_rose/conjured_item.dart';
 import 'package:gilded_rose/item.dart';
 import 'package:gilded_rose/special_item.dart';
 
@@ -9,6 +10,7 @@ class GildedRose {
     "Backstage passes to a TAFKAL80ETC concert"
   ];
   List<String> _legendaryItems = ["Sulfuras, Hand of Ragnaros"];
+  List<String> _conjuredItems = ["Conjured Mana Cake"];
 
   GildedRose(this.items);
 
@@ -17,7 +19,8 @@ class GildedRose {
       Item item = items[i];
       bool isSpecialItem = _specialItems.contains(item.name);
       bool isLegendaryItem = _legendaryItems.contains(item.name);
-      bool isNormalItem = !isSpecialItem && !isLegendaryItem;
+      bool isConjuredItem = _conjuredItems.contains(item.name);
+      bool isNormalItem = !isSpecialItem && !isLegendaryItem && !isConjuredItem;
 
       if (isSpecialItem) {
         if (item is SpecialItem) {
@@ -33,6 +36,10 @@ class GildedRose {
         } else {
           _updateNormalProduct(item);
         }
+      }
+
+      if (item is ConjuredItem) {
+        item.update();
       }
     }
   }

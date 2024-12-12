@@ -1,8 +1,8 @@
 import 'package:gilded_rose/item.dart';
 import 'package:gilded_rose/item_interface.dart';
 
-class BasicItem extends Item implements ItemInterface {
-  BasicItem(String name, int sellIn, int quality)
+class ConjuredItem extends Item implements ItemInterface {
+  ConjuredItem(String name, int sellIn, int quality)
       : super(name, sellIn, quality);
 
   @override
@@ -11,11 +11,11 @@ class BasicItem extends Item implements ItemInterface {
     sellIn--;
     if (quality > 0) {
       //reduce quality
-      quality--;
+      quality -= 2;
     }
     //if expired then reduce quality again
     if (quality > 0 && sellIn < 0) {
-      quality--;
+      quality -= 2;
     }
   }
 }
