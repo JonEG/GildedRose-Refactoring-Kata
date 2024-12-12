@@ -23,13 +23,17 @@ class GildedRose {
           //backstage case
           if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
             items[i].quality++;
-            if (item.sellIn <= 10) items[i].quality++;
-            if (item.sellIn <= 5) items[i].quality++;
+            if (item.quality < 50 && item.sellIn <= 10) items[i].quality++;
+            if (item.quality < 50 && item.sellIn <= 5) items[i].quality++;
             if (item.sellIn == 0) items[i].quality = 0;
           }
           //default case
           else {
-            items[i].quality++;
+            //if product is overdate
+            if (item.quality < 50 &&
+                item.sellIn < 0 &&
+                item.name == "Aged Brie") items[i].quality++;
+            if (item.quality < 50) items[i].quality++;
           }
         }
         items[i].sellIn--;
@@ -45,14 +49,6 @@ class GildedRose {
           if (item.sellIn < 0) {
             items[i].quality--;
           }
-        }
-      }
-
-      //if product is overdate
-      if (item.sellIn < 0) {
-        //calculate quality for overdate Brie
-        if (item.name == "Aged Brie" && item.quality < 50) {
-          items[i].quality++;
         }
       }
     }
